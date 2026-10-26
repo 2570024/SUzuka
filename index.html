@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="鈴鹿コース11 自動運転シミュレーターのコース画像、仕組み、制御仕様を紹介する静的サイト。">
+  <title>SUZUKA / 11 — 自動運転シミュレーター</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="loader" aria-hidden="true"><span>SUZUKA / 11</span><i></i></div>
+  <header class="header">
+    <a class="brand" href="#home" aria-label="トップへ戻る"><span class="brand-mark">●</span> SUZUKA <b>/ 11</b></a>
+    <nav class="nav" aria-label="メインナビゲーション">
+      <a href="#course">コース</a><a href="#system">仕組み</a><a href="#media">動画・画像</a><a href="#docs">資料</a>
+    </nav>
+    <div class="header-actions"><a class="header-cta" href="#contact">案内を読む ↗</a><button class="menu-toggle" type="button" aria-expanded="false" aria-label="メニュー">☰</button></div>
+  </header>
+
+  <main>
+    <section id="home" class="hero section">
+      <div class="hero-copy">
+        <p class="eyebrow">AUTONOMOUS DRIVING / COURSE 11</p>
+        <h1>走る仕組みを、<br><em>見える情報から読む。</em></h1>
+        <p class="lead">鈴鹿コース11を題材にした自動運転シミュレーターの紹介サイトです。ここでは車両を操作するのではなく、コース、観測情報、制御の考え方を画像と説明でまとめています。</p>
+        <div class="actions"><a class="button dark" href="#course">コース画像を見る <span>↘</span></a><a class="text-link" href="#system">仕組みを読む ↓</a></div>
+        <div class="trust"><span>STATIC GUIDE</span><span>実際の走行機能は含みません</span></div>
+      </div>
+      <div class="hero-visual course-preview" aria-label="鈴鹿コース11の画像プレビュー">
+        <img src="assets/course-11-mask.png" alt="鈴鹿コース11 コースマスク画像">
+        <div class="scanline"></div><div class="radar-ring ring-one"></div><div class="radar-ring ring-two"></div>
+        <div class="visual-label"><span>COURSE / 11</span><strong>SUZUKA</strong><small>700 × 760 PX / TRACK MASK</small></div>
+        <div class="corner-note">FIG. 01</div>
+      </div>
+    </section>
+
+    <section id="course" class="section course-section">
+      <div class="section-kicker"><span>01</span><p>COURSE OVERVIEW</p></div>
+      <div class="split-heading"><h2>地図ではなく、<br><em>観測するコース。</em></h2><p>コース11は、車の中心位置と壁までの距離をもとに、次のチェックポイントへ進む制御を考えるための舞台です。画像は添付ツールに含まれていたコースマスクを使用しています。</p></div>
+      <div class="course-grid"><figure class="large-image"><img src="assets/course-11-mask.png" alt="コース11の全体マスク"><figcaption><span>COURSE 11 / MASK</span><span>添付素材をそのまま掲載</span></figcaption></figure><aside class="fact-stack"><div><b>700 × 760</b><span>コース画像サイズ</span></div><div><b>60 FPS</b><span>固定タイムステップ</span></div><div><b>3 LAPS</b><span>周回コースの設定</span></div><a class="button yellow" href="assets/course-11-mask.png" download>画像を保存する <span>↓</span></a></aside></div>
+    </section>
+
+    <section id="system" class="section system-section">
+      <div class="section-kicker"><span>02</span><p>HOW IT WORKS</p></div>
+      <div class="section-head"><h2>入力を見て、<br><em>操作を返す。</em></h2><p>シミュレーターの参加者が編集するのは、毎フレーム渡される観測情報から操作を返す制御ロジックです。</p></div>
+      <div class="info-grid">
+        <article><span class="number">01</span><h3>Observation</h3><p>速度、位置、向き、次のチェックポイント、壁までの距離、路面、進捗などを受け取ります。</p><code>obs.rays['front']</code></article>
+        <article><span class="number">02</span><h3>Control</h3><p>観測した情報を使い、ステアリング・アクセル・ブレーキの値を毎フレーム計算します。</p><code>control(obs) → Action</code></article>
+        <article><span class="number">03</span><h3>Evaluation</h3><p>完走・タイム・衝突回数・平均速度・滑らかさ・エラー回数などで走行結果を確認します。</p><code>time / crashes / smooth</code></article>
+      </div>
+      <div class="surface-note"><span class="surface-dot"></span><p><b>路面も観測対象。</b> road / ice / mud / boost の違いで、グリップ・加速・制動・抵抗が変わります。</p></div>
+    </section>
+
+    <section id="media" class="section media-section">
+      <div class="section-kicker"><span>03</span><p>MEDIA / EXPLANATION</p></div>
+      <div class="media-layout"><div><h2>動きは動画で、<br><em>考え方は文章で。</em></h2><p class="body-copy">紹介映像から実際に車が走行する場面を抜き出しました。青と赤の車の走りを見比べながら、コースや路面による違いを確認できます。</p><a class="button dark" href="assets/suzuka-driving.mp4" target="_blank" rel="noopener">動画を別タブで開く <span>↗</span></a></div><div class="video-card"><video class="run-video" controls preload="metadata" playsinline aria-label="鈴鹿コースの自動運転レース走行映像"><source src="assets/suzuka-driving.mp4" type="video/mp4">お使いのブラウザは動画再生に対応していません。</video><div class="video-caption"><span>MEDIA 01 / RACE</span><p>走行シーン：約00:06〜00:39。赤い車の先行、泥道での減速、ブーストでの追い上げを収録。</p></div></div></div>
+    </section>
+
+    <section id="docs" class="section docs-section">
+      <div class="section-kicker"><span>04</span><p>REFERENCE DOCS</p></div>
+      <div class="docs-head"><h2>詳しい仕様は、<br><em>資料へ。</em></h2><p>添付されたポータブル版の説明書と制御仕様書を、サイトから読めるようにしています。</p></div>
+      <div class="doc-list"><a href="docs/README_日本語.txt" target="_blank"><span>README</span><strong>ポータブル版の使い方</strong><b>↗</b></a><a href="docs/仕様書.md" target="_blank"><span>SPECIFICATION</span><strong>自動運転シミュレータ制御仕様書</strong><b>↗</b></a></div>
+    </section>
+
+    <section id="contact" class="section contact-section"><div><p class="eyebrow">NEXT STEP</p><h2>まずは、<br><em>説明から。</em></h2></div><div class="contact-panel"><p>コース画像の差し替え、走行動画の掲載、独自の説明文への変更など、この紹介ページを用途に合わせて編集できます。</p><a class="button light" href="mailto:hello@example.com?subject=鈴鹿コース11紹介サイトについて">掲載内容を相談する <span>↗</span></a><div class="contact-meta">このサイトは紹介・資料閲覧用です。車両制御や走行シミュレーションは実行しません。</div></div></section>
+  </main>
+  <footer><a class="brand" href="#home"><span class="brand-mark">●</span> SUZUKA <b>/ 11</b></a><span>STATIC GUIDE / <span id="year"></span></span><a href="#home">トップへ ↑</a></footer>
+  <script src="script.js"></script>
+</body>
+</html>
